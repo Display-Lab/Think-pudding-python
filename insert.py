@@ -15,9 +15,7 @@ def insert(final_dict,spek_cs):
     for key, value in final_dict.items():
     #print(value)
         for i in value:
-        
             s=i
             o=key
             spek_cs.add((s, p, o,))
-
     return spek_cs
