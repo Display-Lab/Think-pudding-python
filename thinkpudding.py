@@ -36,11 +36,12 @@ spek_out_dicts=process_spek(spek_cs)
 logging.critical(" processing spek_cs--- %s seconds ---" % (time.time() - start_time))
 
 start_time = time.time()
-final_dict=matching(caus_out_dict,spek_out_dicts)
+merged_list=matching(caus_out_dict,spek_out_dicts)
+#print(final_tuple)
 logging.critical(" processing matching--- %s seconds ---" % (time.time() - start_time))
 
 start_time = time.time()
-spek_tp=insert(final_dict,spek_cs)
+spek_tp=insert(merged_list,spek_cs)
 logging.critical(" inserting acceptable by--- %s seconds ---" % (time.time() - start_time))
 
 print(spek_tp.serialize(format='json-ld', indent=4))   

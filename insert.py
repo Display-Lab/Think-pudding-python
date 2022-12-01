@@ -10,12 +10,23 @@ from rdflib.serializer import Serializer
 from rdfpandas.graph import to_dataframe
 from SPARQLWrapper import XML, SPARQLWrapper
 
-def insert(final_dict,spek_cs):
+def insert(merged_list,spek_cs):
     p=URIRef("slowmo:acceptable_by")
-    for key, value in final_dict.items():
+    for x in merged_list:
+        for z in x[0]:
+            o=z
+            for i in x[1]:
+                s=i
+                spek_cs.add((s, p, o,))
+
+
+    
+   
+    # for key, value in final_dict.items():
+    #     print(list(key))
     #print(value)
-        for i in value:
-            s=i
-            o=key
-            spek_cs.add((s, p, o,))
+        # for i in value:
+        #     s=i
+        #     o=[key]
+        #     spek_cs.add((s, p, o,))
     return spek_cs

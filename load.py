@@ -50,8 +50,8 @@ def process_spek(spek_cs):
 
     spek_out_dicts={}
     BL=[]
-    s=URIRef("http://example.com/app#mpog-aspire") 
-    #s=URIRef("http://example.com/app#display-lab")
+    #s=URIRef("http://example.com/app#mpog-aspire") 
+    s=URIRef("http://example.com/app#display-lab")
     p=URIRef("http://example.com/slowmo#HasCandidate")
     p1=URIRef("slowmo-HasPrecondition")
     p1=URIRef("http://purl.obolibrary.org/obo/RO_0000091")
@@ -73,7 +73,8 @@ def matching(caus_out_dict,spek_out_dicts):
     final_dict={}
     fg=list(caus_out_dict.values())
     fr=list(spek_out_dicts.values())
- 
+    accept_ids=[]
+    bnodes=[]
     for i in range(len(fg)):
         for x in range(len (fr)):
             result =  all(elem in fr[x]  for elem in fg[i])
@@ -81,8 +82,14 @@ def matching(caus_out_dict,spek_out_dicts):
                  # l=list(spek_out_dicts.keys())[list(spek_out_dicts.values()).index(fr[x])]
                 l=[k for k,v in spek_out_dicts.items() if v == fr[x]]
                 #print(l)
-                y=list(caus_out_dict.keys())[list(caus_out_dict.values()).index(fg[i])]
+                bnodes.append(l)
+                y=[k for k,v in caus_out_dict.items() if v == fg[i]]
+                #y=list(caus_out_dict.keys())[list(caus_out_dict.values()).index(fg[i])]
                 #blist.append(y)
-                #print(y)
-                final_dict[y]=l
-    return final_dict
+              
+                accept_ids.append(y)
+                #print(z)
+                #final_dict[y]=l
+                #print (final_dict)
+    merged_list = [(accept_ids[i], bnodes[i]) for i in range(0, len(accept_ids))]
+    return merged_list
