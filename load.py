@@ -16,7 +16,7 @@ warnings.filterwarnings("ignore")
 def read(file):
     #start_time = time.time()
     g = Graph()
-    g.parse(file)
+    g.parse(data=file,format="json-ld")
     #logging.critical(" reading graph--- %s seconds ---" % (time.time() - start_time)) 
     return g
 

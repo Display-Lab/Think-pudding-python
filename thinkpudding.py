@@ -17,35 +17,45 @@ import collections
 
 from load import read,process_causalpathways,process_spek,matching
 from insert import insert
-start_time1 = time.time()
-start_time = time.time()
-spek_cs=read(sys.argv[1])
-logging.critical(" reading spek graph--- %s seconds ---" % (time.time() - start_time)) 
-start_time = time.time()
-causal_pathways=read(sys.argv[2])
-logging.critical(" reading causal pathways graph--- %s seconds ---" % (time.time() - start_time))
-spek_out_dicts = {}
+class Thinkpudding:
+    start_time1 = time.time()
+    spek_out_dicts = {}
+    caus_out_dict={}
+    final_dict={}
+    
+    def __init__(self, spek_cs: str = "{}", causal_pathways: str = "{}"):
+        start_time = time.time()
+        #self.spek_cs1 = json.dumps(spek_cs)
+        self.spek_cs=read(spek_cs)
+        logging.critical(" reading spek graph--- %s seconds ---" % (time.time() - start_time)) 
+        start_time = time.time()
+        #self.causal_pathways1 = json.dumps(causal_pathways)
+        self.causal_pathways=read(causal_pathways)
+        logging.critical(" reading causal pathways graph--- %s seconds ---" % (time.time() - start_time))
+    
+    def process_causalpathways(self):
+        start_time = time.time()
+        self.caus_out_dict=process_causalpathways(self.causal_pathways)
+        logging.critical(" processing causal pathways--- %s seconds ---" % (time.time() - start_time))
 
-caus_out_dict={}
-final_dict={}
-start_time = time.time()
-caus_out_dict=process_causalpathways(causal_pathways)
-logging.critical(" processing causal pathways--- %s seconds ---" % (time.time() - start_time))
-start_time = time.time()
-spek_out_dicts=process_spek(spek_cs)
-logging.critical(" processing spek_cs--- %s seconds ---" % (time.time() - start_time))
+    def process_spek(self):
+        start_time = time.time()
+        self.spek_out_dicts=process_spek(self.spek_cs)
+        logging.critical(" processing spek_cs--- %s seconds ---" % (time.time() - start_time))
+    
+    def matching(self):
+        start_time = time.time()
+        self.merged_list=matching(self.caus_out_dict,self.spek_out_dicts)
+        logging.critical(" processing matching--- %s seconds ---" % (time.time() - start_time))
 
-start_time = time.time()
-merged_list=matching(caus_out_dict,spek_out_dicts)
-#print(final_tuple)
-logging.critical(" processing matching--- %s seconds ---" % (time.time() - start_time))
+    def insert(self):
+        start_time = time.time()
+        self.spek_tp=insert(self.merged_list,self.spek_cs)
+        logging.critical(" inserting acceptable by--- %s seconds ---" % (time.time() - start_time))
+        return self.spek_tp
 
-start_time = time.time()
-spek_tp=insert(merged_list,spek_cs)
-logging.critical(" inserting acceptable by--- %s seconds ---" % (time.time() - start_time))
-
-print(spek_tp.serialize(format='json-ld', indent=4))   
-logging.critical("complete thinkpudding--- %s seconds ---" % (time.time() - start_time1))
+# print(spek_tp.serialize(format='json-ld', indent=4))   
+# logging.critical("complete thinkpudding--- %s seconds ---" % (time.time() - start_time1))
 #print(caus_out_dict) 
 #print(spek_out_dicts) 
 #print(final_dict)          
