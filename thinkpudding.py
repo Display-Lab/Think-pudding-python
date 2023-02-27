@@ -48,10 +48,11 @@ class Thinkpudding:
     
     def matching(self):
         start_time = time.time()
-        matching(self.caus_out_dict,self.spek_out_dicts,self.comparator_dicts)
-        # self.merged_list=matching(self.caus_out_dict,self.spek_out_dicts)
+        # matching(self.caus_out_dict,self.spek_out_dicts,self.comparator_dicts)
+        self.merged_list=matching(self.caus_out_dict,self.spek_out_dicts,self.comparator_dicts)
         # for x in range(len(self.merged_list)):
         #     print(self.merged_list[x])
+
         logging.critical(" processing matching--- %s seconds ---" % (time.time() - start_time))
 
     def insert(self):

@@ -77,7 +77,7 @@ def process_spek(spek_cs):
                     for s,p,o in spek_cs.triples((s,p2,None)):
                         s=o
                         for s,p,o in spek_cs.triples((s,RDF.type,None)):
-                            print(o)
+                            # print(o)
                             BL.append(o)
         
         spek_out_dicts[s1] = y
