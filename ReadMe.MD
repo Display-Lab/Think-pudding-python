@@ -3,5 +3,5 @@ This repository converts think-pudding module that uses the fuseki server and sp
 To run this script 
 
 '''
-python think-pudding.py [path/to/the/spekfile][pathe/to/the/causalpathwaysfile] >spek_tp.json
+python think-pudding.py [path/to/the/spekfile][pathe/to/the/causalpathwaysfile]
 '''
